@@ -1,5 +1,14 @@
 version: '3.1'
 services:
+  proxy:
+    image: nginx
+    container_name: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - '$PWD/nginx.conf:/etc/nginx/conf.d/default.conf'
+      - '$PWD/index.html:/usr/share/nginx/html/index.html'
+
   jenkins:
     image: 'tkomagata/jenkins:latest-alpine'
     container_name: jenkins
