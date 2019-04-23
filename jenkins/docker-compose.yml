@@ -11,3 +11,20 @@ services:
       - '50000:50000'
     volumes:
       - '$PWD/data/jenkins:/var/jenkins_home'
+
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    container_name: gitlab
+    restart: always
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url  'http://localhost:8081/gitlab'
+        gitlab_rails['lfs_enabled'] = true
+    ports:
+      - '8081:8081'
+      - '2443:443'
+      - '2222:22'
+    volumes:
+      - '$PWD/data/gitlab/config:/etc/gitlab'
+      - '$PWD/data/gitlab/logs:/var/log/gitlab'
+      - '$PWD/data/gitlab/data:/var/opt/gitlab'
